@@ -1,6 +1,8 @@
 let history = [];
+let H = '';
 let output;
 let prevNum;
+let PN;
 let currentNum;
 let clearNum;
 let add, sub, mul, div;
@@ -13,7 +15,12 @@ function resetCurrentNum()
     currentNum = undefined;
     CN = document.getElementById("allNums");
     CN.innerHTML = "0";
+
 }
+
+//Need to add all elements to the history array, then when total button is clicked,
+//a loop will loop through the array and calculate based on the contents in the array.
+
 function buttonPressed(ID)
 {
     CN = document.getElementById("allNums");
@@ -35,22 +42,40 @@ function buttonPressed(ID)
     if (ID=="7")
     {
         currentNum = ID;
-        CN.innerHTML = currentNum;
+        CN.innerHTML= H;
         if (currentNum==prevNum)
         {
-
+            H+=ID;
+            prevNum = ID;
+            currentNum = parseInt(H, 10);
         }
-        prevNum = ID;
+        else
+        {
+            H+=ID;
+            prevNum = ID;
+            currentNum = parseInt(H, 10);
+            CN.innerHTML= H;
+        }
+
     }
+
     if (ID=="8")
     {
         currentNum = ID;
+        CN.innerHTML= ID;
         if (currentNum==prevNum)
         {
-            currentNum+=10;
+            H+=ID;
             prevNum = ID;
+            currentNum = parseInt(H, 10);
         }
-        CN.innerHTML = currentNum;
+        else
+        {
+            H+=ID;
+            prevNum = ID;
+            currentNum = parseInt(H, 10);
+            CN.innerHTML= H;
+        }
     }
     if (ID=="Multiply")
     {
@@ -60,7 +85,7 @@ function buttonPressed(ID)
     {
         if (mul==true)
         {
-            output = prevNum * currentNum;
+            output = currentNum * parseInt(H, 10);
             CN.innerHTML = output;
         }
     }
